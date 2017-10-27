@@ -107,7 +107,9 @@ def get_real_name(users, user_id):
 @click.option('--min_kb', default='1000', prompt='Minimum filesize to delete (in kilobytes)',
               help="Minimum number of Kilobytes for file to qualify.", type=click.INT)
 
-def query_slack(token, days, only_created, sort, min_kb):
+@click.option('--quiet', default=False, type=click.BOOL)
+
+def query_slack(token, days, only_created, sort, min_kb, quiet):
 
     print "Querying Slack's Servers",
 
@@ -151,7 +153,12 @@ def query_slack(token, days, only_created, sort, min_kb):
 
         print "\n%s files match your criteria. (%s)\n" % (len(delete_queue), human_size(total_bytes))
 
-        delete = click.confirm('Do you want to delete all of these files now?')
+        if quiet:
+            files_deleted, bytes_deleted = delete_files(delete_queue, token)
+            print '\n%s files deleted (%s)' % (files_deleted, human_size(bytes_deleted))
+            return
+        else:
+            delete = click.confirm('Do you want to delete all of these files now?')
 
         if delete:
             really = click.prompt("Type \"YES\" to really delete the files listed above")

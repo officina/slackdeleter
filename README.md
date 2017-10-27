@@ -18,7 +18,9 @@ Options:
   --only_created BOOLEAN   Only delete files you created?
   --sort [size|date|user]  Sort by 'size', 'date' or 'user'.
   --min_kb INTEGER         Minimum number of Kilobytes for file to qualify.
+  --quiet                  Deletes automatically the files (no prompt, so be really careful!)
   --help                   Show this message and exit.
+  
 </pre>
 
 # In Action
@@ -49,4 +51,19 @@ DELETING FILES:
   Deleting Pasted image at 2016_08_07 10_11 PM.png (101.52 KB) ...  Deleted
 
 4 files deleted (463.00 KB)
+</pre>
+
+# Quiet Mode:
+<pre>
+python slackdeleter.py --token xoxp-SECRET-SECRET-SECRET-SECRET --days 31 --min_kb 1000 --only_created FALSE --sort size --quiet TRUE
+Querying Slack's Servers . . . . .
+Files:
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     72.65 MB    	John Doe          	49 days ago
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     60.28 MB    	Mark Appleseed 		49 days ago
+  
+9 files match your criteria. (289.06 MB)
+
+  Deleting xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx (72.65 MB) ...  Deleted
+  Deleting xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx (60.28 MB) ...  Deleted
+  
 </pre>
