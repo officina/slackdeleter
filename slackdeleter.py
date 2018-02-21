@@ -107,7 +107,7 @@ def get_real_name(users, user_id):
 @click.option('--min_kb', default='1000', prompt='Minimum filesize to delete (in kilobytes)',
               help="Minimum number of Kilobytes for file to qualify.", type=click.INT)
 
-@click.option('--quiet', default=False, type=click.BOOL)
+@click.option('--no-prompt', default=False, type=click.BOOL)
 
 def query_slack(token, days, only_created, sort, min_kb, quiet):
 
