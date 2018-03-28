@@ -18,7 +18,7 @@ Options:
   --only_created BOOLEAN   Only delete files you created?
   --sort [size|date|user]  Sort by 'size', 'date' or 'user'.
   --min_kb INTEGER         Minimum number of Kilobytes for file to qualify.
-  --quiet                  Deletes automatically the files (no prompt, so be really careful!)
+  --no-prompt                  Deletes automatically the files (no prompt, so be really careful!)
   --help                   Show this message and exit.
   
 </pre>
