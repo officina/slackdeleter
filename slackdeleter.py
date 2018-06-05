@@ -50,7 +50,7 @@ def delete_files(queue, token):
     bytes_deleted = 0
     files_deleted = 0
     for f in queue:
-        print "  Deleting %s (%s) ... " % (f['name'], human_size(f['size'])),
+        print "  Deleting %s (%s) ... " % (f['name'].encode("utf-8"), human_size(f['size'])),
 
         params['file'] = f['id']
         a = requests.get('https://slack.com/api/files.delete', params=params)
@@ -109,7 +109,7 @@ def get_real_name(users, user_id):
 
 @click.option('--no-prompt', default=False, type=click.BOOL)
 
-def query_slack(token, days, only_created, sort, min_kb, quiet):
+def query_slack(token, days, only_created, sort, min_kb, no_prompt):
 
     print "Querying Slack's Servers",
 
@@ -145,15 +145,15 @@ def query_slack(token, days, only_created, sort, min_kb, quiet):
         print "\nFiles:"
 
         for f in delete_queue:
-            real_name = get_real_name(users, f['user'])
+            real_name = get_real_name(users, f['user']).encode("utf-8")
 
-            print "  %s %s\t%s\t%s" % (f['name'].ljust(np + 4), human_size(f['size']).ljust(12),
+            print "  %s %s\t%s\t%s" % (f['name'].encode("utf-8").ljust(np + 4), human_size(f['size']).ljust(12),
                                        real_name.ljust(24),
                                        aft(f['created']))
 
         print "\n%s files match your criteria. (%s)\n" % (len(delete_queue), human_size(total_bytes))
 
-        if quiet:
+        if no_prompt:
             files_deleted, bytes_deleted = delete_files(delete_queue, token)
             print '\n%s files deleted (%s)' % (files_deleted, human_size(bytes_deleted))
             return
